@@ -3,20 +3,29 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/git/TestAlgs/java
+cd ~/git/TestAlgs/java/Queue_stack/QueueStack2
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 let s:shortmess_save = &shortmess
 set shortmess=aoO
-badd +62 Queue_stack/QueueStack.java
+badd +1 QueueParaStack.java
+badd +0 ../QueueStack.java
 argglobal
 %argdel
-$argadd Queue_stack/QueueStack.java
-edit Queue_stack/QueueStack.java
+$argadd QueueParaStack.java
+edit ../QueueStack.java
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
 wincmd _ | wincmd |
 split
 1wincmd k
@@ -30,15 +39,16 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 21 + 17) / 35)
-exe '2resize ' . ((&lines * 10 + 17) / 35)
-exe '3resize ' . ((&lines * 3 + 17) / 35)
-exe 'vert 3resize ' . ((&columns * 1 + 84) / 168)
-exe '4resize ' . ((&lines * 5 + 17) / 35)
-exe 'vert 4resize ' . ((&columns * 61 + 84) / 168)
-exe '5resize ' . ((&lines * 3 + 17) / 35)
-exe 'vert 5resize ' . ((&columns * 58 + 84) / 168)
+exe '1resize ' . ((&lines * 37 + 21) / 42)
+exe 'vert 1resize ' . ((&columns * 84 + 96) / 193)
+exe '2resize ' . ((&lines * 1 + 21) / 42)
+exe 'vert 2resize ' . ((&columns * 84 + 96) / 193)
+exe '3resize ' . ((&lines * 28 + 21) / 42)
+exe 'vert 3resize ' . ((&columns * 108 + 96) / 193)
+exe '4resize ' . ((&lines * 10 + 21) / 42)
+exe 'vert 4resize ' . ((&columns * 108 + 96) / 193)
 argglobal
+balt QueueParaStack.java
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -49,16 +59,16 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 62 - ((12 * winheight(0) + 10) / 21)
+let s:l = 1 - ((0 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 62
-normal! 05|
+keepjumps 1
+normal! 0
 wincmd w
 argglobal
 enew
-balt Queue_stack/QueueStack.java
+balt ../QueueStack.java
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -69,8 +79,10 @@ setlocal fdn=20
 setlocal fen
 wincmd w
 argglobal
-enew
-balt Queue_stack/QueueStack.java
+if bufexists(fnamemodify("QueueParaStack.java", ":p")) | buffer QueueParaStack.java | else | edit QueueParaStack.java | endif
+if &buftype ==# 'terminal'
+  silent file QueueParaStack.java
+endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -79,10 +91,18 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 14) / 28)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 02|
 wincmd w
 argglobal
 enew
-balt Queue_stack/QueueStack.java
+balt QueueParaStack.java
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -92,26 +112,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 wincmd w
-argglobal
-enew
-balt Queue_stack/QueueStack.java
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-wincmd w
-exe '1resize ' . ((&lines * 21 + 17) / 35)
-exe '2resize ' . ((&lines * 10 + 17) / 35)
-exe '3resize ' . ((&lines * 3 + 17) / 35)
-exe 'vert 3resize ' . ((&columns * 1 + 84) / 168)
-exe '4resize ' . ((&lines * 5 + 17) / 35)
-exe 'vert 4resize ' . ((&columns * 61 + 84) / 168)
-exe '5resize ' . ((&lines * 3 + 17) / 35)
-exe 'vert 5resize ' . ((&columns * 58 + 84) / 168)
+3wincmd w
+exe '1resize ' . ((&lines * 37 + 21) / 42)
+exe 'vert 1resize ' . ((&columns * 84 + 96) / 193)
+exe '2resize ' . ((&lines * 1 + 21) / 42)
+exe 'vert 2resize ' . ((&columns * 84 + 96) / 193)
+exe '3resize ' . ((&lines * 28 + 21) / 42)
+exe 'vert 3resize ' . ((&columns * 108 + 96) / 193)
+exe '4resize ' . ((&lines * 10 + 21) / 42)
+exe 'vert 4resize ' . ((&columns * 108 + 96) / 193)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

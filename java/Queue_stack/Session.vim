@@ -3,23 +3,23 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/git/TestAlgs/java
+cd ~/git/TestAlgs/java/Queue_stack
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 let s:shortmess_save = &shortmess
 set shortmess=aoO
-badd +62 Queue_stack/QueueStack.java
+badd +66 QueueStack.java
 argglobal
 %argdel
-$argadd Queue_stack/QueueStack.java
-edit Queue_stack/QueueStack.java
+$argadd QueueStack.java
+edit QueueStack.java
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
-split
-1wincmd k
+vsplit
+1wincmd h
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -30,14 +30,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 21 + 17) / 35)
-exe '2resize ' . ((&lines * 10 + 17) / 35)
-exe '3resize ' . ((&lines * 3 + 17) / 35)
+exe 'vert 1resize ' . ((&columns * 84 + 84) / 168)
+exe 'vert 2resize ' . ((&columns * 83 + 84) / 168)
+exe '3resize ' . ((&lines * 2 + 17) / 35)
 exe 'vert 3resize ' . ((&columns * 1 + 84) / 168)
-exe '4resize ' . ((&lines * 5 + 17) / 35)
-exe 'vert 4resize ' . ((&columns * 61 + 84) / 168)
-exe '5resize ' . ((&lines * 3 + 17) / 35)
-exe 'vert 5resize ' . ((&columns * 58 + 84) / 168)
+exe '4resize ' . ((&lines * 2 + 17) / 35)
+exe 'vert 4resize ' . ((&columns * 79 + 84) / 168)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -49,16 +47,38 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 62 - ((12 * winheight(0) + 10) / 21)
+let s:l = 4 - ((0 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 62
-normal! 05|
+keepjumps 4
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("QueueStack.java", ":p")) | buffer QueueStack.java | else | edit QueueStack.java | endif
+if &buftype ==# 'terminal'
+  silent file QueueStack.java
+endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 68 - ((25 * winheight(0) + 16) / 32)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 68
+normal! 0
 wincmd w
 argglobal
 enew
-balt Queue_stack/QueueStack.java
+balt QueueStack.java
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -70,7 +90,7 @@ setlocal fen
 wincmd w
 argglobal
 enew
-balt Queue_stack/QueueStack.java
+balt QueueStack.java
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -80,38 +100,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 wincmd w
-argglobal
-enew
-balt Queue_stack/QueueStack.java
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-wincmd w
-argglobal
-enew
-balt Queue_stack/QueueStack.java
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-wincmd w
-exe '1resize ' . ((&lines * 21 + 17) / 35)
-exe '2resize ' . ((&lines * 10 + 17) / 35)
-exe '3resize ' . ((&lines * 3 + 17) / 35)
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 84 + 84) / 168)
+exe 'vert 2resize ' . ((&columns * 83 + 84) / 168)
+exe '3resize ' . ((&lines * 2 + 17) / 35)
 exe 'vert 3resize ' . ((&columns * 1 + 84) / 168)
-exe '4resize ' . ((&lines * 5 + 17) / 35)
-exe 'vert 4resize ' . ((&columns * 61 + 84) / 168)
-exe '5resize ' . ((&lines * 3 + 17) / 35)
-exe 'vert 5resize ' . ((&columns * 58 + 84) / 168)
+exe '4resize ' . ((&lines * 2 + 17) / 35)
+exe 'vert 4resize ' . ((&columns * 79 + 84) / 168)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
